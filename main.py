@@ -6,10 +6,11 @@ import sys
 PLATFORM = sys.platform
 SUPPORTED_VIDEO_FORMATS = ['.mp4', '.mkv', '.avi', '.flv', '.mov', '.webm', '.3gp']
 if PLATFORM != 'linux':
-    print(Colors.BOLD + Colors.RED + "Sorry This Program Currently Only Works For Linux Distributions" + Colors.ENDC)
+    print(Colors.BOLD + Colors.RED + "❌ Sorry This Program Currently Only Works For Linux Distributions" + Colors.ENDC)
     exit()
 
 # Know if vlc is installed on computer
+# Coming Soon
 
 while True:
     ParentPath = input(Colors.BOLD + "Where can we find your Video Folder? " + Colors.ENDC)
@@ -18,14 +19,14 @@ while True:
     if it_exist:
         break
     else:
-        print(Colors.BOLD + Colors.RED + "The Folder You Typed In Does Not Exist! Try To Specify The Absolute Path ("
+        print(Colors.BOLD + Colors.RED + "❌ The Folder You Typed In Does Not Exist! Try To Specify The Absolute Path ("
                                          "e.g "
                                          "/home/{"
                                          "your_username}/Videos" + Colors.ENDC)
 
 dirs = getTopFolders(ParentPath)
 if dirs:
-    print(Colors.BOLD + Colors.CYAN + "Here Are The Folders We Found" + Colors.ENDC)
+    print(Colors.BOLD + Colors.CYAN + "Here Are The Folder(s) We Found" + Colors.ENDC)
     print("\n")
     for _dir in dirs:
         print("==> " + Colors.BOLD + Colors.BLUE + _dir + Colors.ENDC)
@@ -39,7 +40,7 @@ if dirs:
         if it_exist:
             break
         else:
-            print(Colors.BOLD + Colors.RED + "The Folder You Typed In Does Not Exist! Try To Copy And Paste The "
+            print(Colors.BOLD + Colors.RED + " ❌ The Folder You Typed In Does Not Exist! Try To Copy And Paste The "
                                              "Folder Name From The List Above" + Colors.ENDC)
     all_files_raw = AllFilesInDir(selected_dir)
 else:
@@ -56,12 +57,13 @@ for file in all_files_raw:
     if ext.lower() in SUPPORTED_VIDEO_FORMATS:
         all_videos.append(file)
     else:
-        print(Colors.BOLD + Colors.YELLOW + f"\nFile {file} Isn't Going To Be Added Because Its An Unsupported "
+        print(Colors.BOLD + Colors.YELLOW + f"\nFile => "
+                                            f"{file.split('/')[-1]} Isn't Going To Be Added Because Its An Unsupported "
                                             f"Format" + Colors.ENDC)
 
 video_count = len(all_videos)
 if video_count < 1:
-    print(Colors.BOLD + Colors.RED + "No Video Of Supported Format Was Found :( , Exitting Program" + Colors.ENDC)
+    print(Colors.BOLD + Colors.RED + "❌ No Video Of Supported Format Was Found... Exiting Program" + Colors.ENDC)
     exit()
 print(Colors.BOLD + Colors.CYAN + f"\nWe Found A Total Of {video_count} Video(s)" + Colors.ENDC)
 
@@ -69,17 +71,19 @@ while True:
     try:
         video_num = int(input(Colors.BOLD + f"How Many Videos Do You Want To Add To The VLC Playlist: " + Colors.ENDC))
         if video_num < 1:
-            print(Colors.BOLD + Colors.RED + "You Typed In 0 or A Negative Number! (This Will Close The Program) "
+            print(Colors.BOLD + Colors.RED + "❌ You Typed In 0 or A Negative Number! (This Will Close The Program) "
                                              "Program Closing..." + Colors.ENDC)
             exit()
         else:
             if video_num > video_count:
-                print(Colors.BOLD + Colors.RED + f"You Types In A Number Greater Than The Number Of Available Videos, Please Type A Number From "
+                print(Colors.BOLD + Colors.RED + f"❌ You Types In A Number Greater Than The Number Of Available "
+                                                 f"Videos, "
+                                                 f"Please Type A Number From "
                       f"1-{video_count}" + Colors.ENDC)
             else:
                 break
     except ValueError:
-        print(Colors.BOLD + Colors.RED + f"Hmmmm, Seems Like You Did Not Input A Number, Please Type A Number From "
+        print(Colors.BOLD + Colors.RED + f"❌ Hmmmm, Seems Like You Did Not Input A Number, Please Type A Number From "
                                          f"1-{video_count}" + Colors.ENDC)
 
 if video_num == 1:
@@ -90,7 +94,7 @@ if video_num == 1:
 
 else:
     while True:
-        display_type = input(Colors.BOLD + "How Do You Want The Videos To Be Played, At Random or Linearly (R for " \
+        display_type = input(Colors.BOLD + "How Do You Want The Videos To Be Played, At Random or Linearly (R for "
                                            "Random and L for "
                                            "Linearly): " + Colors.ENDC)
         if display_type.lower() == 'r' or display_type.lower() == 'l':

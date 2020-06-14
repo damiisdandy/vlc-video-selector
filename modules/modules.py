@@ -14,6 +14,7 @@ def getTopFolders(_path):
     return list(all_root_dirs)
 
 
+# Get Absolute Path to All Files In A Directory
 def AllFilesInDir(path):
     index = -1
     rootlist = []
@@ -34,6 +35,7 @@ def AllFilesInDir(path):
     return allfiles
 
 
+# Color Schema
 class Colors:
     PURPLE = "\033[95m"
     CYAN = "\033[96m"
